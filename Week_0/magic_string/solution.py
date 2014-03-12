@@ -4,7 +4,7 @@ def magic_string(string):
     for index, char in enumerate(string):
         if index < k and char == "<":
             count_changes += 1
-        elif index >=k and char == ">":
+        elif index >= k and char == ">":
             count_changes += 1
     return count_changes
 
