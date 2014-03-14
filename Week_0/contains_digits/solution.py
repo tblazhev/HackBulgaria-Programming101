@@ -5,6 +5,7 @@ def contains_digit(num, digit):
         num //= 10
     return False
 
+
 def contains_digits(num, digits):
     if len(digits) == 0:
         return True
@@ -16,8 +17,8 @@ def contains_digits(num, digits):
 
 def main():
     print(contains_digits(402123, [0, 3, 4]))
-    print(contains_digits(666, [6,4]))
-    print(contains_digits(123456789, [1,2,3,0]))
+    print(contains_digits(666, [6, 4]))
+    print(contains_digits(123456789, [1, 2, 3, 0]))
     print(contains_digits(456, []))
 
 if __name__ == '__main__':
