@@ -2,7 +2,7 @@ import unittest
 from solution import nth_fibonacci
 
 
-class CountVowelsTest(unittest.TestCase):
+class FibonacciTest(unittest.TestCase):
     """docstring for CountVowelsTest"""
     def test_count_vowels(self):
         self.assertEqual(354224848179261915075, nth_fibonacci(100))

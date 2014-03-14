@@ -2,7 +2,7 @@ import unittest
 from solution import count_words
 
 
-class CountVowelsTest(unittest.TestCase):
+class CountWordsTest(unittest.TestCase):
     """docstring for CountVowelsTest"""
     def test_count_vowels(self):
         res1 = {'banana': 1, 'pie': 1, 'apple': 2}
