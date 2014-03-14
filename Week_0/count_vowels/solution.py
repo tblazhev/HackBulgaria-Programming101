@@ -9,7 +9,7 @@ def count_vowels(string):
 
 def main():
     print(count_vowels("Python"))
-    print(count_vowels("Theistareykjarbunga")) #It's a volcano name!
+    print(count_vowels("Theistareykjarbunga"))  # It's a volcano name!
     print(count_vowels("grrrrgh!"))
     print(count_vowels("Github is the second best thing that happend to programmers, after the keyboard!"))
     print(count_vowels("A nice day to code!"))
