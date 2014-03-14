@@ -8,8 +8,9 @@ def nth_fibonacci(n):
         a = b
         b = next
         index = index + 1
-        
+
     return b
+
 
 def main():
     print(nth_fibonacci(100))
