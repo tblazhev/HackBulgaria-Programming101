@@ -3,8 +3,8 @@ from solution import count_words
 
 
 class CountWordsTest(unittest.TestCase):
-    """docstring for CountVowelsTest"""
-    def test_count_vowels(self):
+    """docstring for CountWordsTest"""
+    def test_count_words(self):
         res1 = {'banana': 1, 'pie': 1, 'apple': 2}
         res2 = {'python': 3, 'ruby': 1}
 
