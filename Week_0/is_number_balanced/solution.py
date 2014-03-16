@@ -4,22 +4,20 @@ def sum_of_digits(num):
         total += (num % 10)
         num = num // 10
     return total
-    
+
+
 def is_number_balanced(num):
     str_num = str(num)
-    num_len= len(str_num)
+    num_len = len(str_num)
     if num_len == 1:
         return True
-
-    sum_left = 0
-    sum_right = 0
 
     left_part = int(str_num[:num_len // 2])
     if num_len % 2 == 0:
         right_part = int(str_num[num_len // 2:])
     else:
         right_part = int(str_num[(num_len // 2) + 1:])
-        
+
     if sum_of_digits(left_part) == sum_of_digits(right_part):
         return True
 
