@@ -6,11 +6,12 @@ def reduce_file_path(path):
             if len(final_dirs):
                 del final_dirs[-1]
         elif dir_str != '.' and dir_str != '':
-            final_dirs.append(dir_str)            
+            final_dirs.append(dir_str)
     return '/' + '/'.join(final_dirs)
 
+
 def main():
-    print(reduce_file_path("/")    )
+    print(reduce_file_path("/"))
     print(reduce_file_path("/srv/../"))
     print(reduce_file_path("/srv/www/htdocs/wtf/"))
     print(reduce_file_path("/srv/www/htdocs/wtf"))
