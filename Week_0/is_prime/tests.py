@@ -3,7 +3,7 @@ from solution import is_prime
 
 
 class IsPrimeTest(unittest.TestCase):
-    """docstring for IsNumberBalancedTest"""
+    """docstring for IsPrimeTest"""
     def test_is_prime(self):
         self.assertTrue(not is_prime(1))
         self.assertTrue(is_prime(2))
