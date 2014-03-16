@@ -10,6 +10,7 @@ def is_prime(num):
             return False
     return True
 
+
 def main():
     print(is_prime(1))
     print(is_prime(2))
