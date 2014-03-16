@@ -1,5 +1,4 @@
 def prepare_meal(number):
-    string = ''
     spam = []
 
     n = 0
@@ -14,6 +13,7 @@ def prepare_meal(number):
         else:
             spam.append('and eggs')
     return " ".join(spam)
+
 
 def main():
     print(prepare_meal(5))
