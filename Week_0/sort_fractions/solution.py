@@ -1,5 +1,5 @@
 def sort_fractions(fractions):
-    if fractions == []: 
+    if fractions == []:
         return []
     else:
         pivot = fractions[0]
@@ -7,7 +7,6 @@ def sort_fractions(fractions):
         lesser = sort_fractions([x for x in fractions[1:] if x[0] / x[1] < pivot_float])
         greater = sort_fractions([x for x in fractions[1:] if x[0] / x[1] >= pivot_float])
         return lesser + [pivot] + greater
-
 
 
 def main():
