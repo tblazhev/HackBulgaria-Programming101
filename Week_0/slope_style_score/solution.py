@@ -4,6 +4,7 @@ def average(arr):
         total += item
     return total / len(arr)
 
+
 def slope_style_score(scores):
     scores = sorted(scores)
     return round(average(scores[1:-1]), 2)
