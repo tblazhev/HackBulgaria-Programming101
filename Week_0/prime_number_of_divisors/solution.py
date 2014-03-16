@@ -10,6 +10,7 @@ def is_prime(num):
             return False
     return True
 
+
 def count_divisors(num):
     total = 0
     for i in range(1, num + 1):
@@ -17,11 +18,13 @@ def count_divisors(num):
             total += 1
     return total
 
+
 def prime_number_of_divisors(num):
     count = count_divisors(num)
     if is_prime(count):
         return True
     return False
+
 
 def main():
     print(prime_number_of_divisors(7))
