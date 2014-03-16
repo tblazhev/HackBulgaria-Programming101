@@ -8,6 +8,7 @@ def is_an_bn(word):
         return True
     return False
 
+
 def main():
     print(is_an_bn(""))
     print(is_an_bn("rado"))
