@@ -4,7 +4,7 @@ from solution import is_an_bn
 
 class IsAnBnTest(unittest.TestCase):
     """docstring for IsAnBnTest"""
-    def test_groupby(self):
+    def test_is_an_bn(self):
         self.assertTrue(is_an_bn(""))
         self.assertTrue(not is_an_bn("rado"))
         self.assertTrue(not is_an_bn("aaabb"))
