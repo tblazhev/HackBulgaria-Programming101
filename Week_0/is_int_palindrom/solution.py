@@ -3,6 +3,7 @@ def is_int_palindrom(num):
         return True
     return False
 
+
 def main():
     print(is_int_palindrom(1))
     print(is_int_palindrom(42))
