@@ -18,8 +18,7 @@ def nth_fib_lists(listA, listB, n):
 
 
 def main():
-    print(nth_fib_lists([1,2], [3,4], 4))
-
+    print(nth_fib_lists([1, 2], [3, 4], 4))
     print(nth_fib_lists([1], [2], 1))
     print(nth_fib_lists([1], [2], 2))
     print(nth_fib_lists([1, 2], [1, 3], 3))
