@@ -5,6 +5,7 @@ def sum_of_digits(num):
         num = num // 10
     return total
 
+
 def main():
     print(sum_of_digits(1325132435356))
     print(sum_of_digits(123))
