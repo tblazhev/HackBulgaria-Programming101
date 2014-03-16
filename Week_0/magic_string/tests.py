@@ -9,8 +9,7 @@ class MagicStringTest(unittest.TestCase):
         self.assertEqual(0, magic_string(">>>><<<<"))
         self.assertEqual(4, magic_string("<<>>"))
         self.assertEqual(20,
-                         magic_string(
-                         "<><<<>>>>><<>>>>><>><<<>><><><><<><<<<<><<>>><><><"))
+                         magic_string("<><<<>>>>><<>>>>><>><<<>><><><><<><<<<<><<>>><><><"))
 
 if __name__ == '__main__':
     unittest.main()
