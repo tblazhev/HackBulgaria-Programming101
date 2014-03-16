@@ -6,7 +6,7 @@ def unique_words_count(arr):
         if word not in words:
             words.append(word)
             count += 1
-    
+
     return count
 
 
