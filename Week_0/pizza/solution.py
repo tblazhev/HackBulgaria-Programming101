@@ -1,4 +1,3 @@
-import sys
 import os
 from time import time
 from datetime import datetime
@@ -9,6 +8,7 @@ saved = False
 discard = False
 current_orders_files = {}
 #### END ###
+
 
 ### COMMANDS ###
 def unknown_command():
@@ -21,6 +21,7 @@ def unknown_command():
     print(" load <number>")
     print(" finish")
 
+
 def take(name, price):
     global saved
 
@@ -31,9 +32,11 @@ def take(name, price):
     print("Taking order from %s for %s" % (name, price))
     saved = False
 
+
 def status():
     for name in order:
         print("%s - %s" % (name, order[name]))
+
 
 def save():
     global saved
@@ -54,6 +57,7 @@ def save():
     print("Saved current order to %s" % (filename))
     saved = True
 
+
 def c_list():
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
     if len(files) == 1:
@@ -65,6 +69,7 @@ def c_list():
             current_orders_files[count] = f
             print("%s - %s" % (count, f))
             count += 1
+
 
 def load(number):
     global order
@@ -82,7 +87,6 @@ def load(number):
     else:
         print("No such file. Use list command to see available files.")
 #### END ###
-
 
 
 def main():
@@ -121,7 +125,7 @@ def main():
             elif len(current_orders_files) == 0:
                 print("Use list command before loading")
             elif len(order) > 0 and not saved:
-                if discard == False:
+                if discard is False:
                     print("You have not saved the current order.")
                     print("If you wish to discard it, type load <number> again.")
                     discard = True
@@ -132,7 +136,7 @@ def main():
                 load(args[0])
         elif main_command == 'finish':
             if len(order) > 0 and not saved:
-                if discard == False:
+                if discard is False:
                     print("You have not saved your order.")
                     print("If you wish to continue, type finish again")
                     print("If you want to save your order, type save")
@@ -143,10 +147,6 @@ def main():
             else:
                 print("Finishing order. Goodbye!")
                 break
-    
-
-
-
 
 
 if __name__ == '__main__':
