@@ -50,6 +50,32 @@ class DbIntTests(unittest.TestCase):
     def test_get_yearly_expenses(self):
         self.assertEqual(439000, self.dbi.get_yearly_expenses())
 
+    def test_add_employee(self):
+        new_entry = {
+            "name": "Tedi",
+            "monthly_salary": 20000,
+            "yearly_bonus": 10000,
+            "position": "Team Lead"
+        }
+        self.assertTrue(self.dbi.add_employee(new_entry))
+        new_entry["id"] = 6
+        self.data.append(new_entry)
+        self.assertEqual(self.data, self.dbi.get_employees())
+
+    def test_delete_employee_by_id(self):
+        self.assertTrue(self.dbi.delete_employee_by_id(5))
+        self.data.pop()
+        self.assertEqual(self.data, self.dbi.get_employees())
+
+    # def test_update_employee(self):
+    #     updated_info = {
+    #         "name": "Ivo Ivo",
+    #         "monthly_salary": 300,
+    #         "yearly_bonus": 0,
+    #         "position": "Team Lead"
+    #     }
+    #     self.assertTrue(self.dbi.update_employee_by_id(self, id, updated_info))
+
     def tearDown(self):
         script_path = os.path.dirname(os.path.realpath(__file__))
         try:
