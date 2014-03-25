@@ -45,7 +45,20 @@ class DBInterface():
         self.conn.commit()
         return True
 
-    def delete_employee_by_id(self, id):
-        query = "DELETE FROM employees WHERE id=?"
-        self.dict_cursor.execute(query, (id,))
+    def delete_employee_by_id(self, emp_id):
+        query = "DELETE FROM employees WHERE id = ?"
+        self.dict_cursor.execute(query, (emp_id,))
+        self.conn.commit()
+        return True
+
+    def update_employee_by_id(self, emp_id, updated_info):
+        query = "UPDATE employees SET name = ?, monthly_salary = ?, yearly_bonus = ?, position = ? WHERE id = ?"
+        data_tuple = (
+            updated_info["name"],
+            updated_info["monthly_salary"],
+            updated_info["yearly_bonus"],
+            updated_info["position"],
+            emp_id
+        )
+        self.dict_cursor.execute(query, data_tuple)
         return True

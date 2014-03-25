@@ -67,14 +67,17 @@ class DbIntTests(unittest.TestCase):
         self.data.pop()
         self.assertEqual(self.data, self.dbi.get_employees())
 
-    # def test_update_employee(self):
-    #     updated_info = {
-    #         "name": "Ivo Ivo",
-    #         "monthly_salary": 300,
-    #         "yearly_bonus": 0,
-    #         "position": "Team Lead"
-    #     }
-    #     self.assertTrue(self.dbi.update_employee_by_id(self, id, updated_info))
+    def test_update_employee_by_id(self):
+        updated_info = {
+            "id": 2,
+            "name": "Rado Rado",
+            "monthly_salary": 2000,
+            "yearly_bonus": 2000,
+            "position": "Senior Technical Support"
+        }
+        self.assertTrue(self.dbi.update_employee_by_id(2, updated_info))
+        self.data[1] = updated_info
+        self.assertEqual(self.data, self.dbi.get_employees())
 
     def tearDown(self):
         script_path = os.path.dirname(os.path.realpath(__file__))
