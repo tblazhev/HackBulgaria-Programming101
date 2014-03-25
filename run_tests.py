@@ -5,7 +5,7 @@ from subprocess import call
 
 def main():
     script_path = os.path.dirname(os.path.realpath(__file__))
-    weeks = glob(script_path + "/Week_*")
+    weeks = glob(script_path + "/Week*")
     for week_path in weeks:
         solutions_dirs = glob(week_path + "/*/")
         for solution_dir in solutions_dirs:
