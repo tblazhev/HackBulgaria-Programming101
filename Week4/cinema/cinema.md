@@ -26,7 +26,7 @@ No complex stuff here. Just a few simple tables:
 **Reservations**
 
 | id | username | projection_id | row | col |
-| ---|----------|---------------|:----:|
+| ---|----------|---------------|:----:|:---:|
 |1|RadoRado|1|2|1|
 |2|RadoRado|1|3|5|
 |3|RadoRado|1|7|8|
