@@ -30,14 +30,30 @@ class DBInterface():
         projections = self.dict_cursor.execute(query, query_data).fetchall()
         return projections
 
-    def get_projection_spots(self, projection_id):
-        query = "SELECT spot FROM reservations WHERE projection_id = ?"
-        taken_spots = self.dict_cursor.execute(query, (projection_id,)).fetchall()
-        spots = self.get_matrix()
-        for item in taken_spots:
-            spot_tuple = eval(item["spot"])
-            spots[spot_tuple[0] - 1][spot_tuple[1] - 1] = 1
-        return spots
+    def get_projection_seats(self, projection_id):
+        query = "SELECT row, col FROM reservations WHERE projection_id = ?"
+        taken_seats = self.dict_cursor.execute(query, (projection_id,)).fetchall()
+        seats = self.get_matrix()
+        for item in taken_seats:
+            row = item["row"] - 1
+            col = item["col"] - 1
+            seats[row][col] = 1
+        return seats
+
+    def get_projection_remaining_seats(self, projection_id):
+        query = "SELECT 100 - COUNT(*) AS count FROM reservations WHERE projection_id = ?"
+        available = self.dict_cursor.execute(query, (projection_id,)).fetchone()
+        return available["count"]
+
+    def get_reservation_by_name(self, name):
+        query = "SELECT * FROM reservations WHERE username = ?"
+        return self.dict_cursor.execute(query, (name,)).fetchall()
+
+    def delete_reservation_by_name(self, name):
+        query = "DELETE FROM reservations WHERE username = ?"
+        self.dict_cursor.execute(query, (name,))
+        self.conn.commit()
+        return True
 
     def get_matrix(self):
         matrix = [[0 for x in range(10)] for x in range(10)]

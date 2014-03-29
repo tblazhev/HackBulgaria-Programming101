@@ -57,9 +57,41 @@ class DBInterfaceTest(unittest.TestCase):
         }]
         self.assertEqual(expected, self.dbi.get_movie_projections(1, "2014-04-01"))
 
-    def test_get_projection_spots(self):
-        # matrix = [[0 for x in range(10)] for x in range(10)]
-        self.assertEqual(97, len(self.dbi.get_projection_spots(1)))
+    def test_get_projection_seats(self):
+        matrix = self.dbi.get_matrix()
+        matrix[1][0] = 1
+        matrix[2][4] = 1
+        matrix[6][7] = 1
+        self.assertEqual(matrix, self.dbi.get_projection_seats(1))
+
+    def test_get_projection_remaining_seats(self):
+        self.assertEqual(97, self.dbi.get_projection_remaining_seats(1))
+
+    def test_get_reservation_by_name(self):
+        expected = [{
+            "id": 1,
+            "username": "RadoRado",
+            "projection_id": 1,
+            "row": 2,
+            "col": 1
+        }, {
+            "id": 2,
+            "username": "RadoRado",
+            "projection_id": 1,
+            "row": 3,
+            "col": 5
+        }, {
+            "id": 3,
+            "username": "RadoRado",
+            "projection_id": 1,
+            "row": 7,
+            "col": 8
+        }]
+        self.assertEqual(expected, self.dbi.get_reservation_by_name("RadoRado"))
+
+    def test_delete_reservation_by_name(self):
+        self.assertTrue(self.dbi.delete_reservation_by_name("RadoRado"))
+        self.assertEqual([], self.dbi.get_reservation_by_name("RadoRado"))
 
     def tearDown(self):
         try:
