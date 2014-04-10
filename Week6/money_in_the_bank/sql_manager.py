@@ -36,13 +36,6 @@ def change_message(new_message, logged_user):
     logged_user.set_message(new_message)
 
 
-def change_pass(new_pass, logged_user):
-    new_pass_hashed = hash_string(new_pass)
-    update_sql = "UPDATE clients SET password = ? WHERE id = ?"
-    cursor.execute(update_sql, (new_pass_hashed, logged_user.get_id()))
-    conn.commit()
-
-
 def register(username, email, password):
     insert_sql = "insert into clients (username, email, password) values (?, ?, ?)"
     cursor.execute(insert_sql, (username, email, hash_string(password)))
@@ -158,3 +151,25 @@ def send_change_password(logged_user):
     except:
         print ("Error sending mail.")
     server.quit()
+
+
+def change_pass(logged_user, new_pass):
+    new_pass_hashed = hash_string(new_pass)
+    update_sql = "UPDATE clients SET password = ?, pass_reset_code = '' WHERE id = ?"
+    cursor.execute(update_sql, (new_pass_hashed, logged_user.get_id()))
+    conn.commit()
+
+
+def is_valid_verification_code(logged_user, code):
+    if code == '':
+        return False
+
+    int_timestamp = int(time.time())
+    query = "SELECT pass_reset_code, pass_reset_code_timestamp FROM clients WHERE id = ?"
+    data = (logged_user.get_id(),)
+    row = cursor.execute(query, data).fetchone()
+    if row is None:
+        return False
+    if row[0] != code or int_timestamp - row[1] > 600:
+        return False
+    return True

@@ -51,8 +51,7 @@ def main_menu():
 def help_logged():
     print("Current valid commands:")
     print("info - for showing account info")
-    print("send-change-password - send a random code for password change")
-    print("change-password - insert a code for changing your password")
+    print("change-password - change your password")
     print("change-message - for changing users message")
     print("show-message - for showing users message")
     print("exit - for closing program!")
@@ -76,8 +75,18 @@ def logged_menu(logged_user):
 
         #     sql_manager.change_pass(new_pass, logged_user)
 
-        elif command == "send-change-password":
+        elif command == "change-password":
             sql_manager.send_change_password(logged_user)
+            verification_code = input("Enter verification code:")
+            if not sql_manager.is_valid_verification_code(logged_user, verification_code):
+                print("Invalid/Expired verification code.")
+                continue
+
+            new_password = getpass("Enter your new password: ")
+            while sql_manager.check_for_strong_password(new_password) is False:
+                print("Password is too weak. Use at least 9 characters, uppercase, lowercase, numeric and special characters.")
+                new_password = getpass("Enter your new password: ")
+            sql_manager.change_pass(logged_user, new_password)
 
         elif command == 'change-message':
             new_message = input("Enter your new message: ")
