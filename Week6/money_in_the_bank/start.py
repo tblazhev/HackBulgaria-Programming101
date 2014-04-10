@@ -10,12 +10,13 @@ def main_menu():
 
         if command == 'register':
             username = input("Enter your username: ")
+            email = input("Enter your email: ")
             password = getpass("Enter your password: ")
             while sql_manager.check_for_strong_password(password) is False:
                 print("Password is too weak. Use at least 9 characters, uppercase, lowercase, numeric and special characters.")
                 password = input("Enter your password: ")
 
-            sql_manager.register(username, password)
+            sql_manager.register(username, email, password)
 
             print("Registration Successfull")
 
@@ -51,13 +52,16 @@ def logged_menu(logged_user):
             print("Your id is: " + str(logged_user.get_id()))
             print("Your balance is:" + str(logged_user.get_balance()) + '$')
 
-        elif command == 'changepass':
-            new_pass = getpass("Enter your new password: ")
-            while sql_manager.check_for_strong_password(new_pass) is False:
-                print("Password is too weak. Use at least 9 characters, uppercase, lowercase, numeric and special characters.")
-                new_pass = getpass("Enter your password: ")
+        # elif command == 'changepass':
+        #     new_pass = getpass("Enter your new password: ")
+        #     while sql_manager.check_for_strong_password(new_pass) is False:
+        #         print("Password is too weak. Use at least 9 characters, uppercase, lowercase, numeric and special characters.")
+        #         new_pass = getpass("Enter your password: ")
 
-            sql_manager.change_pass(new_pass, logged_user)
+        #     sql_manager.change_pass(new_pass, logged_user)
+
+        elif command == "send-reset-password":
+            sql_manager.send_reset_password(logged_user)
 
         elif command == 'change-message':
             new_message = input("Enter your new message: ")
@@ -68,7 +72,9 @@ def logged_menu(logged_user):
 
         elif command == 'help':
             print("info - for showing account info")
-            print("changepass - for changing passowrd")
+            #print("changepass - for changing passowrd")
+            print("send-reset-password - send a random code for password reset")
+            print("reset-password - insert a code for changing your password")
             print("change-message - for changing users message")
             print("show-message - for showing users message")
             print("exit - for closing program!")

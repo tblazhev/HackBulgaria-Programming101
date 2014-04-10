@@ -14,6 +14,7 @@ def create_clients_table():
     create_query = '''create table if not exists
         clients(id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT,
+                email TEXT,
                 password TEXT,
                 balance REAL DEFAULT 0,
                 message TEXT,
@@ -37,25 +38,36 @@ def change_pass(new_pass, logged_user):
     conn.commit()
 
 
-def register(username, password):
-    insert_sql = "insert into clients (username, password) values (?, ?)"
-    cursor.execute(insert_sql, (username, hash_password(password)))
+def register(username, email, password):
+    insert_sql = "insert into clients (username, email, password) values (?, ?, ?)"
+    cursor.execute(insert_sql, (username, email, hash_password(password)))
     conn.commit()
+
+
+def is_blocked_user(username, int_timestamp):
+    query = "SELECT time_of_last_failed_login, number_of_failed_attempts FROM clients WHERE username = ?"
+    row = cursor.execute(query, (username,)).fetchone()
+    if int_timestamp - row[0] < 300 and row[1] >= 5:
+        return True
+    return False
+
+
+def get_user(username, password):
+    select_query = "SELECT id, username, balance, message FROM clients WHERE username = ? AND password = ? LIMIT 1"
+    cursor.execute(select_query, (username, hash_password(password)))
+    user = cursor.fetchone()
+    return user
 
 
 def login(username, password):
     int_timestamp = int(time.time())
 
-    query = "SELECT time_of_last_failed_login, number_of_failed_attempts FROM clients WHERE username = ?"
-    row = cursor.execute(query, (username,)).fetchone()
-    if int_timestamp - row[0] < 300 and row[1] >= 5:
+    is_blocked = is_blocked_user(username, int_timestamp)
+    if is_blocked:
         print("You have been blocked for 5 minutes. Please wait patiently.")
         return False
 
-    select_query = "SELECT id, username, balance, message FROM clients WHERE username = ? AND password = ? LIMIT 1"
-
-    cursor.execute(select_query, (username, hash_password(password)))
-    user = cursor.fetchone()
+    user = get_user(username, password)
 
     if(user):
         query = "UPDATE clients SET number_of_failed_attempts = 0 WHERE username = ?"
