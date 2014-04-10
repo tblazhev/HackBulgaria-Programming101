@@ -3,6 +3,7 @@ from Client import Client
 import re
 import string
 import hashlib
+import time
 
 
 conn = sqlite3.connect("bank.db")
@@ -15,7 +16,9 @@ def create_clients_table():
                 username TEXT,
                 password TEXT,
                 balance REAL DEFAULT 0,
-                message TEXT)'''
+                message TEXT,
+                time_of_last_failed_login INTEGER DEFAULT 0,
+                number_of_failed_attempts INTEGER DEFAULT 0)'''
 
     cursor.execute(create_query)
 
@@ -41,14 +44,28 @@ def register(username, password):
 
 
 def login(username, password):
+    int_timestamp = int(time.time())
+
+    query = "SELECT time_of_last_failed_login, number_of_failed_attempts FROM clients WHERE username = ?"
+    row = cursor.execute(query, (username,)).fetchone()
+    if int_timestamp - row[0] < 300 and row[1] >= 5:
+        print("You have been blocked for 5 minutes. Please wait patiently.")
+        return False
+
     select_query = "SELECT id, username, balance, message FROM clients WHERE username = ? AND password = ? LIMIT 1"
 
     cursor.execute(select_query, (username, hash_password(password)))
     user = cursor.fetchone()
 
     if(user):
+        query = "UPDATE clients SET number_of_failed_attempts = 0 WHERE username = ?"
+        cursor.execute(query, (username,))
+        conn.commit()
         return Client(user[0], user[1], user[2], user[3])
     else:
+        query = "UPDATE clients SET number_of_failed_attempts = number_of_failed_attempts + 1, time_of_last_failed_login = ? WHERE username = ?"
+        cursor.execute(query, (int_timestamp, username))
+        conn.commit()
         return False
 
 
