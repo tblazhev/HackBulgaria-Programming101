@@ -1,4 +1,5 @@
 from animal import Animal
+import sqlite3
 
 
 class AnimalBuilder():
