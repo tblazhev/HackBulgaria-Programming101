@@ -18,8 +18,8 @@ class SqlManagerTests(unittest.TestCase):
 
     def test_register(self):
         sql_manager.register('Dinko', '123123')
-
-        sql_manager.cursor.execute('SELECT Count(*)  FROM clients WHERE username = (?) AND password = (?)', ('Dinko', '123123'))
+        hashed_password = sql_manager.hash_password('123123')
+        sql_manager.cursor.execute('SELECT Count(*)  FROM clients WHERE username = (?) AND password = (?)', ('Dinko', hashed_password))
         users_count = sql_manager.cursor.fetchone()
 
         self.assertEqual(users_count[0], 1)
