@@ -86,7 +86,7 @@ def logged_menu(logged_user):
             while sql_manager.check_for_strong_password(new_password) is False:
                 print("Password is too weak. Use at least 9 characters, uppercase, lowercase, numeric and special characters.")
                 new_password = getpass("Enter your new password: ")
-            sql_manager.change_pass(logged_user, new_password)
+            sql_manager.change_password(logged_user, new_password)
 
         elif command == 'change-message':
             new_message = input("Enter your new message: ")

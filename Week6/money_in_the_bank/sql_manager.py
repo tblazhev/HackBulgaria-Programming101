@@ -153,7 +153,7 @@ def send_change_password(logged_user):
     server.quit()
 
 
-def change_pass(logged_user, new_pass):
+def change_password(logged_user, new_pass):
     new_pass_hashed = hash_string(new_pass)
     update_sql = "UPDATE clients SET password = ?, pass_reset_code = '' WHERE id = ?"
     cursor.execute(update_sql, (new_pass_hashed, logged_user.get_id()))
