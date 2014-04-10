@@ -2,6 +2,13 @@ import sql_manager
 from getpass import getpass
 
 
+def help_main():
+    print("Current valid commands:")
+    print("login - for logging in!")
+    print("register - for creating new account!")
+    print("exit - for closing program!")
+
+
 def main_menu():
     print("Welcome to our bank service. You are not logged in. \nPlease register or login")
 
@@ -32,14 +39,23 @@ def main_menu():
                 print("Login failed")
 
         elif command == 'help':
-            print("login - for logging in!")
-            print("register - for creating new account!")
-            print("exit - for closing program!")
+            help_main()
 
         elif command == 'exit':
             break
         else:
             print("Not a valid command")
+            help_main()
+
+
+def help_logged():
+    print("Current valid commands:")
+    print("info - for showing account info")
+    print("send-change-password - send a random code for password change")
+    print("change-password - insert a code for changing your password")
+    print("change-message - for changing users message")
+    print("show-message - for showing users message")
+    print("exit - for closing program!")
 
 
 def logged_menu(logged_user):
@@ -60,8 +76,8 @@ def logged_menu(logged_user):
 
         #     sql_manager.change_pass(new_pass, logged_user)
 
-        elif command == "send-reset-password":
-            sql_manager.send_reset_password(logged_user)
+        elif command == "send-change-password":
+            sql_manager.send_change_password(logged_user)
 
         elif command == 'change-message':
             new_message = input("Enter your new message: ")
@@ -71,16 +87,14 @@ def logged_menu(logged_user):
             print(logged_user.get_message())
 
         elif command == 'help':
-            print("info - for showing account info")
-            #print("changepass - for changing passowrd")
-            print("send-reset-password - send a random code for password reset")
-            print("reset-password - insert a code for changing your password")
-            print("change-message - for changing users message")
-            print("show-message - for showing users message")
-            print("exit - for closing program!")
+            help_logged()
 
         elif command == 'exit':
             break
+
+        else:
+            print("Not a valid command")
+            help_logged()
 
 
 def main():
